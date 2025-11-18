@@ -149,13 +149,21 @@ document.addEventListener("DOMContentLoaded", function () {
       tdNome.textContent = item.nome;
 
       const tdLink = document.createElement("td");
-      const a = document.createElement("a");
-      a.href = item.url;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      a.textContent = item.url;
-      a.classList.add("small-link");
-      tdLink.appendChild(a);
+const a = document.createElement("a");
+
+// Corrigir automaticamente links sem https://
+let href = item.url.trim();
+if (!href.startsWith("http://") && !href.startsWith("https://")) {
+  href = "https://" + href;
+}
+
+a.href = href;
+a.target = "_blank";
+a.rel = "noopener noreferrer";
+a.textContent = item.url;
+a.classList.add("small-link");
+tdLink.appendChild(a);
+
 
       const tdAcoes = document.createElement("td");
       tdAcoes.classList.add("text-end");
